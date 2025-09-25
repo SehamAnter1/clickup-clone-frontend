@@ -5,6 +5,8 @@ import {
   useDroppable,
   DragOverlay
 } from "@dnd-kit/core";
+import { Card,CardContent  } from "@/components/ui/card"
+import { Badge, Calendar, GripVertical, MessageCircle, Paperclip } from "lucide-react";
 
 // 1️⃣ Draggable item component
 function TaskCard({ id, task}) {
@@ -26,21 +28,23 @@ function TaskCard({ id, task}) {
 
   return (
     <div
-      ref={setNodeRef}
+   
+      // className="grid text-start   my-2 rounded shado cursor-pointer"
+    >
+    
+       <Card
+                  key={task.id}
+                  ref={setNodeRef}
       style={style}
       {...listeners}
-      {...attributes}
-      className="grid text-start  p-2 my-2 rounded shadow cursor-pointer"
-    >
-      <h2 className="text-lg font-semibold line-clamp-1">{task?.title}</h2>
-      <span className="text-gray-500 line-clamp-2">{task?.description}</span>
-
-        <div className="space-y-4">
+      {...attributes}  className="cursor-move my-2 transition-all duration-300 border bg-white/60 dark:bg-neutral-800/60 backdrop-blur-xs hover:bg-white/70 dark:hover:bg-neutral-700/70"
+                   >
+                    <div className="space-y-4 p-5">
                       <div className="flex items-start justify-between">
                         <h4 className="font-semibold text-neutral-900 dark:text-neutral-100 leading-tight">
                           {task.title}
                         </h4>
-                        {/* <GripVertical className="w-5 h-5 text-neutral-500 dark:text-neutral-400 cursor-move" /> */}
+                        <GripVertical className="w-5 h-5 text-neutral-500 dark:text-neutral-400 cursor-move" />
                       </div>
                       {task.description && (
                         <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed">
@@ -50,12 +54,12 @@ function TaskCard({ id, task}) {
                       {task.tags && (
                         <div className="flex flex-wrap gap-2">
                           {task.tags.map((tag) => (
-                            <span
+                            <Badge
                               key={tag}
                               className="text-xs bg-neutral-100/60 dark:bg-neutral-700/60 text-neutral-800 dark:text-neutral-200 border-neutral-200/50 dark:border-neutral-600/50 backdrop-blur-sm"
                             >
                               {tag}
-                            </span>
+                            </Badge>
                           ))}
                         </div>
                       )}
@@ -63,36 +67,37 @@ function TaskCard({ id, task}) {
                         <div className="flex items-center gap-4 text-neutral-600 dark:text-neutral-400">
                           {task.dueDate && (
                             <div className="flex items-center gap-1">
-                              {/* <Calendar className="w-4 h-4" /> */}
+                              <Calendar className="w-4 h-4" />
                               <span className="text-xs font-medium">Jan 15</span>
                             </div>
                           )}
                           {task.comments && (
                             <div className="flex items-center gap-1">
-                              {/* <MessageCircle className="w-4 h-4" /> */}
+                              <MessageCircle className="w-4 h-4" />
                               <span className="text-xs font-medium">{task.comments}</span>
                             </div>
                           )}
                           {task.attachments && (
                             <div className="flex items-center gap-1">
-                              {/* <Paperclip className="w-4 h-4" /> */}
+                              <Paperclip className="w-4 h-4" />
                               <span className="text-xs font-medium">{task.attachments}</span>
                             </div>
                           )}
                         </div>
-                        {task.assignee && (
-                          <div className="w-8 h-8 ring-2 ring-white/50 dark:ring-neutral-700/50">
-                            <img src={task.assignee.avatar} />
-                            <span className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 font-medium">
+                        {/* {task.assignee && (
+                          <Avatar className="w-8 h-8 ring-2 ring-white/50 dark:ring-neutral-700/50">
+                            <AvatarImage src={task.assignee.avatar} />
+                            <AvatarFallback className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 font-medium">
                               {task.assignee.name
                                 .split(' ')
                                 .map((n) => n[0])
                                 .join('')}
-                            </span>
-                          </div>
-                        )}
+                            </AvatarFallback>
+                          </Avatar>
+                        )} */}
                       </div>
                     </div>
+                </Card>
 
     </div>
   );
